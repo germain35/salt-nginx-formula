@@ -1,0 +1,36 @@
+{%- from "nginx/map.jinja" import nginx with context %}
+
+user  {{ nginx.user }};
+worker_processes  {{ nginx.conf.worker_processes }};
+
+error_log  /var/log/nginx/error.log warn;
+pid        /var/run/nginx.pid;
+
+
+events {
+    worker_connections  {{ nginx.conf.worker_connections }};
+}
+
+
+http {
+    sendfile {{ nginx.conf.sendfile }};
+    tcp_nopush {{ nginx.conf.tcp_nopush }};
+    tcp_nodelay {{ nginx.conf.tcp_nodelay }};
+    keepalive_timeout {{ nginx.conf.keepalive_timeout }};
+    gzip {{ nginx.conf.gzip }}
+    types_hash_max_size {{ nginx.conf.types_hash_max_size }};
+    server_tokens {{ nginx.conf.server_tokens }};
+
+    include       /etc/nginx/mime.types;
+    default_type  application/octet-stream;
+
+    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent" "$http_x_forwarded_for"';
+
+    access_log  /var/log/nginx/access.log  main;
+
+    include /etc/nginx/conf.d/*.conf;
+    include /etc/nginx/upstreams/*.conf
+    include /etc/nginx/sites-enabled/*.conf
+}
