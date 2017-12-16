@@ -6,8 +6,7 @@ include:
 {%- if nginx.ssl.enabled %}
 nginx_ssl_packages:
   pkg.installed:
-    - pkgs:
-      - openssl
+    - pkgs: {{ nginx.ssl_pkgs }}
     - require_in:
       - pkg: nginx_package
 {%- endif %}
@@ -18,8 +17,10 @@ nginx_package:
     {%- if nginx.version is defined %}
     - version: {{ nginx.version }}
     {%- endif %}
+    {%- if nginx.manage_repo %}
     - require:
       - sls: nginx.repo
+    {%- endif %}
 
 {%- if nginx.extras %}
 nginx_extras_pkg:

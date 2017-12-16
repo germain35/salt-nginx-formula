@@ -1,4 +1,4 @@
-{%- from "nginx/map.jinja" import nginx with context %}
+{%- from "nginx/map.jinja" import nginx with context -%}
 
 user  {{ nginx.user }};
 worker_processes  {{ nginx.conf.worker_processes }};
@@ -17,7 +17,7 @@ http {
     tcp_nopush {{ nginx.conf.tcp_nopush }};
     tcp_nodelay {{ nginx.conf.tcp_nodelay }};
     keepalive_timeout {{ nginx.conf.keepalive_timeout }};
-    gzip {{ nginx.conf.gzip }}
+    gzip {{ nginx.conf.gzip }};
     types_hash_max_size {{ nginx.conf.types_hash_max_size }};
     server_tokens {{ nginx.conf.server_tokens }};
 
