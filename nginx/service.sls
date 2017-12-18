@@ -7,7 +7,7 @@ include:
 nginx_service:
   service.running:
     - name: {{ nginx.service }}
-    - enable: True
-    - reload: {{nginx.reload}}
+    - enable: {{ nginx.service_enabled }}
+    - reload: {{ nginx.service_reload }}
     - require:
         - pkg: nginx_package

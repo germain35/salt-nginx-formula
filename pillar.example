@@ -1,0 +1,16 @@
+nginx:
+  manage_repo: True
+  certificates:
+    cert.domain.com:
+      key_source: http://url.domain.com/cert.key
+      key_source_hash: http://url.domain.com/cert.key.md5
+      crt_source: http://url.domain.com/cert.crt
+      crt_source_hash: http://url.domain.com/cert.crt.md5
+  upstreams:
+    upstream:
+      source: http://url.domain.com/upstream.conf
+      source_hash: http://url.domain.com/upstream.conf.md5
+  sites:
+    server:
+      source: http://url.domain.com/server.conf
+      source_hash: http://url.domain.com/server.conf.md5

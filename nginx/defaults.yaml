@@ -3,7 +3,8 @@
 nginx:
   manage_repo: False
   extras: False
-  reload: False
+  service_reload: False
+  service_enabled: True
   purge_default: False
   ssl: 
     enabled: True

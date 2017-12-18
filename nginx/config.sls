@@ -14,17 +14,17 @@ nginx_conf_dir:
 
 nginx_conf:
   file.managed:
-  - name: {{ nginx.conf_file }}
-  - source: salt://nginx/templates/nginx.conf.jinja
-  - template: jinja
-  - user: root
-  - group: root
-  - mode: 644
-  - require:
-    - pkg: nginx_package
-    - file: nginx_conf_dir
-  - watch_in:
-    - service: nginx_service
+    - name: {{ nginx.conf_file }}
+    - source: salt://nginx/templates/nginx.conf.jinja
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: 644
+    - require:
+      - pkg: nginx_package
+      - file: nginx_conf_dir
+    - watch_in:
+      - service: nginx_service
 
 {%- if nginx.purge_default %}
 nginx_purge_default:
@@ -51,13 +51,13 @@ nginx_ssl_private_dir:
    
 nginx_generate_dhparam:
   cmd.run:
-  - name: openssl dhparam -out {{ nginx.dh_file }} {{ nginx.ssl.dh_key_length }}
-  - creates: {{ nginx.dh_file }}
-  - require:
-    - pkg: nginx_package
-    - file: nginx_ssl_dir
-  - watch_in:
-    - service: nginx_service
+    - name: openssl dhparam -out {{ nginx.dh_file }} {{ nginx.ssl.dh_key_length }}
+    - creates: {{ nginx.dh_file }}
+    - require:
+      - pkg: nginx_package
+      - file: nginx_ssl_dir
+    - watch_in:
+      - service: nginx_service
 {%- endif %}
 
 
