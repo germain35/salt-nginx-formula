@@ -9,7 +9,7 @@ nginx:
   ssl: 
     enabled: True
     dh_key_length: 2048
-  conf:
+  config:
     worker_processes: auto
     worker_connections: 1024
     sendfile: 'on'
