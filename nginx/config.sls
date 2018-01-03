@@ -102,7 +102,7 @@ nginx_files_{{file}}:
     - name: {{ nginx.conf_dir | path_join(file) }}
     - source: {{ params.source }}
     - template: jinja
-    - defaults: {{ params.get('settings', None) }}
+    - defaults: {{ params.get('settings', {}) }}
     - user: root
     - group: root
     - dir_mode: 755
@@ -123,7 +123,7 @@ nginx_files_{{file}}:
     - source_hash: {{ params.source_hash }}
     {%- endif %}
     - template: jinja
-    - defaults: {{ params.get('settings', None) }}
+    - defaults: {{ params.get('settings', {}) }}
     - makedirs: True
     - user: root
     - group: root
@@ -159,6 +159,7 @@ nginx_server_{{server}}:
     - source_hash: {{ params.source_hash }}
     {%- endif %}
     - template: jinja
+    - defaults: {{ params.get('settings', {}) }}
     - makedirs: True
     - user: root
     - group: root
