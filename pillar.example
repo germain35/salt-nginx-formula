@@ -1,5 +1,7 @@
 nginx:
   manage_repo: True
+  service_reload: True
+  purge_sites_enabled: True
   certificates:
     cert.domain.com:
       key:

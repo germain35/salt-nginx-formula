@@ -119,6 +119,17 @@ nginx_upstream_{{upstream}}:
   {%- endfor %}
 {%- endif %}
 
+nginx_sites_enabled_dir:
+  file.directory:
+    - name: {{ nginx.conf_dir }}/sites-enabled
+    - user: root
+    - group: root
+    - dir_mode: 755
+    - file_mode: 644
+    - makedirs: True
+    - clean: {{ nginx.purge_sites_enabled }}
+    - require:
+      - file: nginx_conf_dir
 
 {%- if nginx.sites is defined %}
   {%- for site, params in nginx.sites.iteritems() %}
@@ -145,6 +156,7 @@ nginx_enable_site_{{site}}:
     - makedirs: True
     - require:
       - file: nginx_site_{{site}}
+      - file: nginx_sites_enabled_dir
     - watch_in:
       - service: nginx_service
     {%- endif %}
