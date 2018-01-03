@@ -6,7 +6,7 @@ nginx:
   service_reload: False
   service_enabled: True
   purge_default: False
-  purge_sites_enabled: False
+  purge_servers: False
   ssl: 
     enabled: True
     dh_key_length: 2048

@@ -1,7 +1,7 @@
 nginx:
   manage_repo: True
   service_reload: True
-  purge_sites_enabled: True
+  purge_servers: True
   certificates:
     cert.domain.com:
       key:
@@ -10,11 +10,23 @@ nginx:
       crt:
         source: http://url.domain.com/cert.crt
         source_hash: http://url.domain.com/cert.crt.md5
-  upstreams:
-    upstream:
-      source: http://url.domain.com/upstream.conf
-      source_hash: http://url.domain.com/upstream.conf.md5
-  sites:
-    server:
-      source: http://url.domain.com/server.conf
-      source_hash: http://url.domain.com/server.conf.md5
+  servers:
+    default:
+      source: salt://nginx-files/sites-available/default.conf.jinja
+      prefix: '00-'
+      settings:
+        server_name: site.domain.com
+  files:
+    upstreams:
+      type: directory
+      source: salt://nginx-files/upstreams
+    locations:
+      type: directory
+      source: salt://nginx-files/locations
+    limits:
+      type: directory
+      source: salt://nginx-files/limits
+    zones:
+      type: directory
+      source: salt://nginx-files/zones
+
