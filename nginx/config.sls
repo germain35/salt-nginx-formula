@@ -72,8 +72,7 @@ nginx_key_{{certificate}}:
     - source_hash: {{ params.key_source_hash }}
       {%- endif %}
     {%- else %}
-    - content: |
-      {{ params.key_content }}
+    - content: '{{ params.key_content }}'
     {%- endif %}
     - user: root
     - group: root
@@ -90,8 +89,7 @@ nginx_crt_{{certificate}}:
     - source_hash: {{ params.crt_source_hash }}
       {%- endif %}
     {%- else %}
-    - content: |
-      {{ params.crt_content }}
+    - content: '{{ params.crt_content }}'
     {%- endif %}
     - user: root
     - group: root
