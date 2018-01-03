@@ -2,10 +2,12 @@ nginx:
   manage_repo: True
   certificates:
     cert.domain.com:
-      key_source: http://url.domain.com/cert.key
-      key_source_hash: http://url.domain.com/cert.key.md5
-      crt_source: http://url.domain.com/cert.crt
-      crt_source_hash: http://url.domain.com/cert.crt.md5
+      key:
+        source: http://url.domain.com/cert.key
+        source_hash: http://url.domain.com/cert.key.md5
+      crt:
+        source: http://url.domain.com/cert.crt
+        source_hash: http://url.domain.com/cert.crt.md5
   upstreams:
     upstream:
       source: http://url.domain.com/upstream.conf

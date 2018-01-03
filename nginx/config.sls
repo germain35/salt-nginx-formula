@@ -66,14 +66,13 @@ nginx_generate_dhparam:
 nginx_key_{{certificate}}:
   file.managed:
     - name: {{ nginx.ssl_private_dir }}/{{certificate}}.key
-    {%- if params.key_source is defined %}
-    - source: {{ params.key_source }}
-      {%- if params.key_source_hash is defined %}
-    - source_hash: {{ params.key_source_hash }}
+    {%- if params.key.source is defined %}
+    - source: {{ params.key.source }}
+      {%- if params.key.source_hash is defined %}
+    - source_hash: {{ params.key.source_hash }}
       {%- endif %}
-    {%- else %}
-    - contents: |
-      {{ params.key_content }}
+    {% else %}
+    - contents_pillar: nginx:certificates:{{certificate}}:key:contents
     {%- endif %}
     - user: root
     - group: root
@@ -84,14 +83,13 @@ nginx_key_{{certificate}}:
 nginx_crt_{{certificate}}:
   file.managed:
     - name: {{ nginx.ssl_dir }}/{{certificate}}.crt
-    {%- if params.crt_source is defined %}
-    - source: {{ params.crt_source }}
-      {%- if params.crt_source_hash is defined %}
-    - source_hash: {{ params.crt_source_hash }}
+    {%- if params.crt.source is defined %}
+    - source: {{ params.crt.source }}
+      {%- if params.crt.source_hash is defined %}
+    - source_hash: {{ params.crt.source_hash }}
       {%- endif %}
     {%- else %}
-    - contents: |
-      {{ params.crt_content }}
+    - contents_pillar: nginx:certificates:{{certificate}}:crt:contents
     {%- endif %}
     - user: root
     - group: root
@@ -152,4 +150,3 @@ nginx_enable_site_{{site}}:
     {%- endif %}
   {%- endfor %}
 {%- endif %}
-
