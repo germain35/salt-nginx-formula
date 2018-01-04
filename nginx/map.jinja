@@ -25,6 +25,8 @@ that differ from what is in defaults.yaml
         'conf_file': '/etc/nginx/nginx.conf',
         'ssl_dir': '/etc/nginx/ssl',
         'dh_file': '/etc/nginx/ssl/dhparam.pem',
+        'log_dir': '/var/log/nginx',
+        'pid_file': '/var/run/nginx.pid',
         'repo': {
             'humanname': 'nginx',
             'name': 'deb http://nginx.org/packages/mainline/' ~ os|lower ~ '/ ' ~ oscodename|lower ~ ' nginx',
