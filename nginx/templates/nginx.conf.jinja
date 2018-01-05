@@ -1,5 +1,9 @@
 {%- from "nginx/map.jinja" import nginx with context -%}
 
+{%- for include in nginx.config.get('includes', []) %}
+include {{ include }};
+{%- endfor %}
+
 user  {{ nginx.user }};
 worker_processes  {{ nginx.config.worker_processes }};
 

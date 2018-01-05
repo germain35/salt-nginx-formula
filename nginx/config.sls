@@ -72,6 +72,8 @@ nginx_key_{{certificate}}:
     - mode: 644
     - require:
       - file: nginx_ssl_dir
+    - watch_in:
+      - service: nginx_service
 
 nginx_crt_{{certificate}}:
   file.managed:
@@ -89,6 +91,8 @@ nginx_crt_{{certificate}}:
     - mode: 644
     - require:
       - file: nginx_ssl_dir
+    - watch_in:
+      - service: nginx_service
   {%- endfor %}
 {%- endif %}
 
