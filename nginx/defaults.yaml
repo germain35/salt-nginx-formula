@@ -2,6 +2,7 @@
 # vim: ft=yaml
 nginx:
   manage_repo: False
+  manage_conf: True
   extras: False
   service_reload: False
   service_enabled: True

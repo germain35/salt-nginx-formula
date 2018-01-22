@@ -12,6 +12,7 @@ nginx_conf_dir:
     - group: root 
     - mode: 755
 
+{%- if nginx.manage_conf %}
 nginx_conf:
   file.managed:
     - name: {{ nginx.conf_file }}
@@ -25,6 +26,7 @@ nginx_conf:
       - file: nginx_conf_dir
     - watch_in:
       - service: nginx_service
+{%- endif %}
 
 {%- if nginx.purge_default %}
 nginx_purge_default:
