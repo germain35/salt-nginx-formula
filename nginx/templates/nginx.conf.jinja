@@ -6,6 +6,7 @@ include {{ include }};
 
 user  {{ nginx.user }};
 worker_processes  {{ nginx.config.worker_processes }};
+worker_rlimit_nofile {{ nginx.config.worker_rlimit_nofile }};
 
 error_log  {{ nginx.log_dir }}/error.log warn;
 pid        {{ nginx.pid_file }};

@@ -13,6 +13,7 @@ nginx:
     dh_key_length: 2048
   config:
     worker_processes: auto
+    worker_rlimit_nofile: 20000
     events:
       worker_connections: 1024
     http:
