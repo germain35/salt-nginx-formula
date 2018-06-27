@@ -57,7 +57,7 @@ nginx_generate_dhparam:
 
 
 {%- if nginx.certificates is defined %}
-  {%- for certificate, params in nginx.certificates.iteritems() %}
+  {%- for certificate, params in nginx.certificates.items() %}
 nginx_key_{{certificate}}:
   file.managed:
     - name: {{ nginx.ssl_dir }}/{{certificate}}.key
@@ -100,7 +100,7 @@ nginx_crt_{{certificate}}:
 
 
 {%- if nginx.files is defined %}
-  {%- for file, params in nginx.files.iteritems() %}
+  {%- for file, params in nginx.files.items() %}
     {%- if params.get('type', 'file') == 'directory' %}
 
 nginx_files_{{file}}:
@@ -156,7 +156,7 @@ nginx_servers_enabled_dir:
       - file: nginx_conf_dir
 
 {%- if nginx.servers is defined %}
-  {%- for server, params in nginx.servers.iteritems() %}
+  {%- for server, params in nginx.servers.items() %}
 nginx_server_{{server}}:
   file.managed:
     - name: {{ nginx.conf_dir }}/sites-available/{{server}}.conf

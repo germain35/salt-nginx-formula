@@ -13,7 +13,7 @@ pid        {{ nginx.pid_file }};
 
 
 events {
-    {%- for k, v in nginx.config.events.iteritems() %}
+    {%- for k, v in nginx.config.events.items() %}
     {{ k }}  {{ v }};
     {%- endfor %}
 }

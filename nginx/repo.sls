@@ -17,7 +17,7 @@ nginx_gnupg_pkg:
   {%- if 'repo' in nginx and nginx.repo is mapping %}
 nginx_repo:
   pkgrepo.managed:
-    {%- for k, v in nginx.repo.iteritems() %}
+    {%- for k, v in nginx.repo.items() %}
     - {{k}}: {{v}}
     {%- endfor %}
   {%- endif %}
