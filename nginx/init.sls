@@ -4,4 +4,6 @@ include:
   - nginx.repo
   - nginx.install
   - nginx.config
+  - nginx.ssl
+  - nginx.server
   - nginx.service

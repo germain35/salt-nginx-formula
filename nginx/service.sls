@@ -2,7 +2,6 @@
 
 include:
   - nginx.install
-  - nginx.config
 
 nginx_service:
   service.running:
