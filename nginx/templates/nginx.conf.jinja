@@ -36,6 +36,8 @@ http {
 
     access_log  {{ nginx.log_dir }}/access.log  main;
 
+    include /etc/nginx/mime.types;
+    include /etc/nginx/conf.d/*.conf;
     {%- for include in nginx.config.http.includes %}
     include {{ include }};
     {%- endfor %}
