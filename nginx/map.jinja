@@ -29,10 +29,9 @@ that differ from what is in defaults.yaml
         'pid_file': '/var/run/nginx.pid',
         'repo': {
             'humanname': 'nginx',
-            'name': 'deb http://nginx.org/packages/mainline/' ~ os|lower ~ '/ ' ~ oscodename|lower ~ ' nginx',
+            'name': 'deb https://nginx.org/packages/mainline/' ~ os|lower ~ '/ ' ~ oscodename|lower ~ ' nginx',
             'file': '/etc/apt/sources.list.d/nginx.list',
-            'keyserver': 'pgp.mit.edu',
-            'keyid': '573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62',
+            'key_url': 'https://nginx.org/keys/nginx_signing.key',
         },
     },
 }

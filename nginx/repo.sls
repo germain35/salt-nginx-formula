@@ -7,13 +7,19 @@
 
 {%- if nginx.manage_repo %}
   {%- if osfamily == 'Debian' %}
-nginx_gnupg_pkg:
+nginx_repo_pkgs:
   pkg.installed:
-    - name: gnupg
+    - pkgs:
+      - gnupg2
+      - ca-certificates
+      - lsb-release
+      - apt-transport-https
+      - python-apt
+    - reload_modules: True
     - require_in:
       - pkgrepo: nginx_repo
   {%- endif %}
-  
+
   {%- if 'repo' in nginx and nginx.repo is mapping %}
 nginx_repo:
   pkgrepo.managed:

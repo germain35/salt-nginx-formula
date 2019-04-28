@@ -62,5 +62,41 @@ nginx_enable_server_{{server}}:
     - watch_in:
       - service: nginx_service
     {%- endif %}
+
+    {%- if params.get('files', False) %}
+      {%- for dir in params.files.get('directory', []) %}
+nginx_server_{{server}}_file_directory_{{loop.index}}:
+  file.directory:
+        {%- for k, v in dir.items() %}
+    - {{k}}: {{v}}
+        {%- endfor %}
+    - watch_in:
+      - service: nginx_service
+      {%- endfor %}
+      {%- for recurse in params.files.get('recurse', []) %}
+nginx_server_{{server}}_file_recurse_{{loop.index}}:
+  file.recurse:
+        {%- for k, v in recurse.items() %}
+    - {{k}}: {{v}}
+        {%- endfor %}
+    - watch_in:
+      - service: nginx_service
+      {%- endfor %}
+      {%- for managed in params.files.get('recurse', []) %}
+nginx_server_{{server}}_file_managed_{{loop.index}}:
+  file.managed:
+        {%- for k, v in managed.items() %}
+          {%- if k == 'contents' and v is not list %}
+    - {{k}}: |
+        {{v|indent(8)}}
+          {%- else %}
+    - {{k}}: {{v}}
+          {%- endif %}
+        {%- endfor %}
+    - watch_in:
+      - service: nginx_service
+      {%- endfor %}
+    {%- endif %}
+
   {%- endfor %}
 {%- endif %}

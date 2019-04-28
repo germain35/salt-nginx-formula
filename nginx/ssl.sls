@@ -10,7 +10,7 @@ nginx_ssl_dir:
     - user: root
     - group: root
     - mode: 755
-   
+
 nginx_generate_dhparam:
   cmd.run:
     - name: openssl dhparam -out {{ nginx.dh_file }} {{ nginx.ssl.dh_key_length }}
@@ -64,5 +64,28 @@ nginx_crt_{{certificate}}:
       - file: nginx_ssl_dir
     - watch_in:
       - service: nginx_service
+
+    {%- if params.get('ca', False) %}
+nginx_ca_{{certificate}}:
+  file.managed:
+    - name: {{ nginx.ssl_dir }}/{{certificate}}-ca.crt
+    {%- if params.ca.source is defined %}
+    - source: {{ params.ca.source }}
+      {%- if params.ca.source_hash is defined %}
+    - source_hash: {{ params.ca.source_hash }}
+      {%- else %}
+    - skip_verify: True
+      {%- endif %}
+    {% else %}
+    - contents_pillar: nginx:certificates:{{certificate}}:ca:contents
+    {%- endif %}
+    - user: root
+    - group: root
+    - mode: 644
+    - require:
+      - file: nginx_ssl_dir
+    - watch_in:
+      - service: nginx_service
+    {%- endif %}
   {%- endfor %}
 {%- endif %}
